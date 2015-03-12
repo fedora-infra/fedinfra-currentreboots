@@ -10,6 +10,7 @@ import Data.Aeson.Lens
 import qualified Data.HashMap.Strict as HM
 import Data.Maybe (catMaybes)
 import Data.Scientific
+import qualified Data.Set as S
 import qualified Data.Text as T
 import Network.Wreq
 
@@ -66,11 +67,8 @@ getRecent s = do
   -- TODO: I can probably make this prettier with more lens familiarity.
   return . catMaybes . map valueToPlaybookRun $ msgs ^.. responseBody . key "raw_messages" . values
 
-getRecentStarted :: IO [PlaybookRun]
-getRecentStarted = getRecent recentStartUrl
-
-getRecentCompleted :: IO [PlaybookRun]
-getRecentCompleted = getRecent recentCompletedUrl
-
 main :: IO ()
-main = error "hi!"
+main = do
+  recentStarted <- S.fromList <$> getRecent recentStartUrl
+  recentCompleted <- S.fromList <$> getRecent recentCompletedUrl
+  error "hi!"
