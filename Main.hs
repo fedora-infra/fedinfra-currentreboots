@@ -16,17 +16,17 @@ import qualified Data.Text as T
 import Network.Wreq
 
 recentCompletedUrl :: String
---recentCompletedUrl = "https://apps.fedoraproject.org/datagrepper/raw?delta=\
---                     \172800&topic=org.fedoraproject.prod.ansible.playbook.\
---                     \complete"
+recentCompletedUrl = "https://apps.fedoraproject.org/datagrepper/raw?delta=\
+                     \172800&topic=org.fedoraproject.prod.ansible.playbook.\
+                     \complete"
 
 recentStartUrl :: String
---recentStartUrl = "https://apps.fedoraproject.org/datagrepper/raw?delta=\
---                 \172800&topic=org.fedoraproject.prod.ansible.playbook.\
---                 \start"
+recentStartUrl = "https://apps.fedoraproject.org/datagrepper/raw?delta=\
+                 \172800&topic=org.fedoraproject.prod.ansible.playbook.\
+                 \start"
 
-recentCompletedUrl = "http://localhost:8000/out.json"
-recentStartUrl = "http://localhost:8000/out1.json"
+--recentCompletedUrl = "http://localhost:8000/out.json"
+--recentStartUrl = "http://localhost:8000/out1.json"
 
 data Playbook = Updating | Rebooting deriving (Eq, Ord, Show)
 data MsgData = MsgData { _user :: T.Text
