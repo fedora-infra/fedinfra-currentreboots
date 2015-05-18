@@ -53,19 +53,15 @@ valueToPlaybookRun v = do
   return $ PlaybookRun (MsgData user' playbook' target ts) topic
 
   where
-    determinePlaybook p =
-      if "vhost_reboot" `T.isInfixOf` p
-      then Just Rebooting
-      else if "vhost_update" `T.isInfixOf` p
-           then Just Updating
-           else Nothing
+    determinePlaybook p
+      | "vhost_reboot" `T.isInfixOf` p = Just Rebooting
+      | "vhost_update" `T.isInfixOf` p = Just Updating
+      | otherwise = Nothing
 
-    startOrStop t =
-      if "ansible.playbook.start" `T.isSuffixOf` t
-      then Just Start
-      else if "ansible.playbook.complete" `T.isSuffixOf` t
-           then Just Complete
-           else Nothing
+    startOrStop t
+      | "ansible.playbook.start" `T.isSuffixOf` t = Just Start
+      | "ansible.playbook.complete" `T.isSuffixOf` t = Just Complete
+      | otherwise = Nothing
 
 getRecent :: String -> IO [PlaybookRun]
 getRecent s = do
